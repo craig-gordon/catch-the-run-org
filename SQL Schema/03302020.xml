@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: https://ondras.zarovi.cz/sql/demo/ -->
+<sql>
+<datatypes db="sqlalchemy">
+	<group label="Numeric" color="rgb(238,238,170)">
+		<type label="Integer" length="1" sql="sa.Integer" re="INTEGER" quote=""/>
+		<type label="Float" length="1" sql="sa.Float" re="DOUBLE" quote=""/>
+		<type label="Decimal" length="1" sql="sa.Numeric" re="DOUBLE" quote=""/>
+	</group>
+
+	<group label="Character" color="rgb(255,200,200)">
+        <type label="String" length="1" sql="sa.String" quote="'"/>
+        <type label="Text" length="0" sql="sa.Text" quote="'"/>
+    </group>
+
+    <group label="Date &amp; Time" color="rgb(200,255,200)">
+        <type label="Date" length="0" sql="sa.Date" quote="'"/>
+        <type label="Time" length="0" sql="sa.Time" quote="'"/>
+        <type label="Datetime" length="0" sql="sa.DateTime" quote="'"/>
+        <type label="Timestamp" length="0" sql="sa.Timestamp" quote="'"/>
+        <type label="Interval" length="0" sql="sa.Interval" quote="'"/>
+    </group>
+    
+    <group label="Miscellaneous" color="rgb(200,200,255)">
+        <type label="Boolean" length="0" sql="sa.Boolean" quote=""/>
+        <type label="BLOB" length="1" sql="sa.Binary" quote="'"/>
+        <type label="Pickle" length="0" sql="sa.PickleType" quote=""/>
+    </group>
+</datatypes><table x="305" y="205" name="user">
+<row name="id" null="1" autoincrement="1">
+<datatype>sa.Integer</datatype>
+<default>NULL</default></row>
+<row name="is_consumer" null="1" autoincrement="0">
+<datatype>sa.Boolean</datatype>
+<default>NULL</default></row>
+<row name="is_producer" null="1" autoincrement="0">
+<datatype>sa.Boolean</datatype>
+<default>NULL</default></row>
+<row name="is_discord_server" null="1" autoincrement="0">
+<datatype>sa.Boolean</datatype>
+<default>NULL</default></row>
+<row name="twitch_id" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="twitch_name" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="discord_id" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="discord_name" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="client_key" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="705" y="253" name="subscription">
+<row name="id" null="1" autoincrement="1">
+<datatype>sa.Integer</datatype>
+<default>NULL</default></row>
+<row name="producer_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="user" row="id" />
+</row>
+<row name="consumer_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="user" row="id" />
+</row>
+<row name="domain" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="type" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="endpoint" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="discord_mention_server_id" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default><relation table="user" row="id" />
+</row>
+<row name="whitelisted" null="1" autoincrement="0">
+<datatype>sa.Binary</datatype>
+<default>NULL</default></row>
+<row name="timestamp" null="1" autoincrement="0">
+<datatype>sa.Date</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1105" y="54" name="game">
+<row name="id" null="1" autoincrement="1">
+<datatype>sa.Integer</datatype>
+<default>NULL</default></row>
+<row name="title" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="abbreviation" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="platform" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1106" y="306" name="category">
+<row name="id" null="1" autoincrement="1">
+<datatype>sa.Integer</datatype>
+<default>NULL</default></row>
+<row name="game_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="game" row="id" />
+</row>
+<row name="name" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="tracked" null="1" autoincrement="0">
+<datatype>sa.Boolean</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="706" y="54" name="feed_category">
+<row name="id" null="1" autoincrement="1">
+<datatype>sa.Integer</datatype>
+<default>NULL</default></row>
+<row name="producer_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="user" row="id" />
+</row>
+<row name="category_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="category" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="703" y="603" name="event">
+<row name="id" null="1" autoincrement="1">
+<datatype>sa.Integer</datatype>
+<default>NULL</default></row>
+<row name="producer_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="user" row="id" />
+</row>
+<row name="game_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="game" row="id" />
+</row>
+<row name="category_id" null="1" autoincrement="0">
+<datatype>sa.Integer</datatype>
+<default>NULL</default><relation table="category" row="id" />
+</row>
+<row name="split_name" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="pace" null="1" autoincrement="0">
+<datatype>sa.String</datatype>
+<default>NULL</default></row>
+<row name="message" null="1" autoincrement="0">
+<datatype>sa.Text</datatype>
+<default>NULL</default></row>
+<row name="timestamp" null="1" autoincrement="0">
+<datatype>sa.Date</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+</sql>

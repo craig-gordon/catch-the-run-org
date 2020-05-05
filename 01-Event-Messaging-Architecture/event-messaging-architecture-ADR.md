@@ -77,11 +77,18 @@ The question is how the data should get routed from the Producer to the Processo
 	* Can fan-out basic SMS and Emails if ever needed
 	* Supports Topics for filtering and routing Events properly
 * Option 3: Pure AWS Lambda
-	* Receive HTTP requests directly
+	* Receive HTTP requests directly at an entrypoint Lambda
 	* Would require more manual configuration
 	* Would lose guarantees / functionalities of the AWS push fan-out systems
-	* Lowest latency (?)
+	* Middling latency
+* Option 4: Monolith
+	* Receive HTTP requests directly at the component that also sends dispatches notifications to clients
+	* Simplest solution
+	* Lowest possible latency
+	* Can be easily transitioned to a load balanced setup with multiple monolith instances
+	* The Discord bot cannot dispatch a large volume of messages at once, meaning that the module that dispatches push notifications can also be the module that dispatches Discord notifications
+	* Easiest and fastest development and deployment lifecycle
 
 ## Decision Outcome
 
-Option 3: Pure AWS Lambda. It is possibly the lowest-latency option, and regardless of anything else, we need something at the front of the processing layer that can verify API keys. Option 2 is an acceptable plan B if Option 3 does not perform according to expectations.
+Option 4: Monolith. By far the best choice until consistency or scaling problems necessitate a move to microservices.
